@@ -1,6 +1,6 @@
 import { openTank } from "./alarmOAC.js"
 
-export * as oac from "./alarmOAC.js"
+import * as oac from "./alarmOAC.js"
 class mainStats {
     constructor(combustivel, temp){
         this.combustivel = combustivel
@@ -30,5 +30,4 @@ function decay(){
         oac.openTank()
     }
 }
-
 let interval = setInterval(decay, 1000)
