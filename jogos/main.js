@@ -1,6 +1,5 @@
-import { openTank } from "./alarmOAC.js"
+import * as gm from "./gameManagement.js"
 
-import * as oac from "./alarmOAC.js"
 class mainStats {
     constructor(combustivel, temp){
         this.combustivel = combustivel
@@ -17,17 +16,26 @@ class mainStats {
         this.tankBroken = setter
     }
 }
-let stats = new mainStats(100, 10, false)
+
+let stats = new mainStats(11, 10, false)
+let interval = setInterval(decay, 1000)
 
 function decay(){
     stats.setCombustivel(-1)
     stats.setTemp(+1)
     console.log("wahaha")
-    if (stats.combustivel >= 15) {
-        console.log(stats.combustivel + " " + stats.temp)
-    } else {
+    if (stats.combustivel == 10) {
         clearInterval(interval)
-        oac.openTank()
+        let minigameWindow = window.open("/paginas/pop-ups/test.html")
+        let check = setInterval(function(){
+            let combustivelStatus = minigameWindow.document.getElementById("combustivel")
+            console.log(combustivelStatus)
+            if (combustivelStatus.textContent == "Combustivel cheio"){
+                
+                window.close()
+                console.log("hi")
+            }
+        }, 1000)
     }
 }
-let interval = setInterval(decay, 1000)
+

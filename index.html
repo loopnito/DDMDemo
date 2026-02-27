@@ -8,7 +8,15 @@
 <body>
     <h2>Isso é apenas uma demonstração e um teste das atividades propostas no site do dia das mulheres.</h2>
     <h3>Aperte nos links abaixo para ver os jogos, se perder apenas atualize a pagina</h3>
-    <a href="#" id="tankMinigame">Minigame de tanque</a>
-    <script src="/jogos/main.js" type="module"></script>
+    <h4>Habilite pop-ups, porque eles frequentemente aparecem</h4>
+    <a href="paginas/main.html">Começar jogo (te levara a outro link)</a> <br>
+    <button id="butao">Teste de pop-up (ira te redirecionar a essa mesma pagina)</button>
+    <script>
+        function click(){
+            window.open("index.html")
+        }
+        let butao = document.getElementById("butao")
+        butao.addEventListener("click", click)
+    </script>
 </body>
 </html>
