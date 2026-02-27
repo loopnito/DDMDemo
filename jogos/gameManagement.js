@@ -1,5 +1,7 @@
 //this handles alarm, opening and closing
 //technically it also handles starting and finishing games
+//LATER SEE IF THIS WILL BE USEFUL
+
 export function soundAlarm(location){
     console.log(location + " alarm triggered")
 }
