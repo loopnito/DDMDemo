@@ -27,12 +27,13 @@ function decay(){
     if (stats.combustivel == 10) {
         clearInterval(interval)
         let minigameWindow = window.open("/paginas/pop-ups/test.html")
+        let combustivelStatus
         let check = setInterval(function(){
-            let combustivelStatus = minigameWindow.document.getElementById("combustivel")
+            combustivelStatus = minigameWindow.document.getElementById("combustivel")
             console.log(combustivelStatus)
             if (combustivelStatus.textContent == "Combustivel cheio"){
-                
-                window.close()
+                minigameWindow.close()
+                minigameWindow.close
                 console.log("hi")
             }
         }, 1000)
