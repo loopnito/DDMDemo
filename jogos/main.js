@@ -6,15 +6,6 @@ class mainStats {
         this.tankBroken = false
         this.tempBroken = false
     }
-    setCombustivel(setter) {
-        this.combustivel += setter
-    }
-    setTemp(setter) {
-        this.temp += setter
-    }
-    setTankStatus(setter) { //não esquece que é SETTANKSTATUS!!!!!!!
-        this.tankBroken = setter
-    }
 }
 
 let stats = new mainStats(100, 10, 0, false, false)
@@ -26,9 +17,10 @@ const sendInfoButton = document.getElementById("sendinfo")
 
 sendInfoButton.addEventListener('click', infoStart)
 
+
 function decay() {
-    stats.setCombustivel(-1.5)
-    stats.setTemp(+1)
+    stats.combustivel -= 1.5
+    stats.temp += 1
     info.textContent = "C: " + stats.combustivel + " T: " + stats.temp + " P: " + stats.points
 
     if (stats.combustivel == 25) { malfunctionTank() }
@@ -58,6 +50,7 @@ function malfunctionTank() {
             stats.combustivel = 100
             tankAlarm.textContent = "|| Gasolina OK ||"
             minigameWindow.close()
+            stats.tankBroken = false
             closedForGood = true
             clearInterval(check)
         }
@@ -79,6 +72,7 @@ function malfunctionTemp() {
             stats.temp = 10
             tempAlarm.textContent = "|| Temperatura OK ||"
             minigameWindow.close()
+            stats.tempBroken = false
             closedForGood = true
             clearInterval(check)
         }
@@ -88,13 +82,14 @@ function malfunctionTemp() {
 function infoStart() {
     let minigameWindow = window.open("/paginas/pop-ups/sendInfo.html")
     let cubes = minigameWindow.document.querySelectorAll('.cube')
-    let closedForGood = false // razões de segurança
-    console.log(cubes[0].style.backgroundColor)
 
     let check = setInterval(() => {
         cubes = minigameWindow.document.querySelectorAll('.cube')
-        if (cubes[0].backgroundColor == cubes[1] && cubes[1] == cubes[2] && cubes[2] == cubes[3] && cubes[3] == cubes[4]) {
-
+        console.log(cubes[0].style.backgroundColor)
+        if (cubes[0].style.backgroundColor == cubes[1].style.backgroundColor && cubes[1].style.backgroundColor == cubes[2].style.backgroundColor && cubes[2].style.backgroundColor == cubes[3].style.backgroundColor && cubes[3].style.backgroundColor == cubes[4].style.backgroundColor) {
+            stats.points += 2
+            minigameWindow.close()
+            clearInterval(check)
         }
     }, 1000)
 

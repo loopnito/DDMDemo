@@ -20,6 +20,6 @@ let interval = setInterval(() => {
     info.textContent = "Segure o botão abaixo por " + seconds + " segundos para esfriar a nave"
     if (seconds == 0) {
         info.textContent = "Nave esfriada"
-        
+
     }
 }, 1000);

@@ -14,4 +14,7 @@ for (let index = 0; index < cubes.length; index++) {
     })
 }
 
+const button = document.getElementById("button")
+button.addEventListener("click", () => window.close())
+
 //check for uhhhhhh hmmm you know what you check yeah u the guy
