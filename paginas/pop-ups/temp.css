@@ -1,0 +1,7 @@
+.cube{
+    height: 50px;
+    width: 50px;
+    display:inline;
+    float:left;
+    background-color: rgb(23, 155, 6);
+}
