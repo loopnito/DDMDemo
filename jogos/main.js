@@ -5,39 +5,52 @@ class mainStats {
         this.points = 0
         this.tankBroken = false
         this.tempBroken = false
+        this.timeUntilDestruction
     }
 }
 
-let stats = new mainStats(100, 10, 0, false, false)
+let stats = new mainStats(100, 10, 0, false, false, 30)
 let interval = setInterval(decay, 1000)
 const info = document.getElementById("info")
 const tankAlarm = document.getElementById("tankAlarm")
 const tempAlarm = document.getElementById("tempAlarm")
 const sendInfoButton = document.getElementById("sendinfo")
+const fixTankButton = document.getElementById("fixTank")
+const fixTempButton =document.getElementById("fixTemp")
 
 sendInfoButton.addEventListener('click', infoStart)
-
+fixTankButton.addEventListener('click', malfunctionTank)
+fixTempButton.addEventListener('click', malfunctionTemp)
 
 function decay() {
     stats.combustivel -= 1.5
     stats.temp += 1
     info.textContent = "C: " + stats.combustivel + " T: " + stats.temp + " P: " + stats.points
 
-    if (stats.combustivel == 25) { malfunctionTank() }
-
-    if (stats.temp == 100) { malfunctionTemp() }
-
+    if (stats.combustivel == 25) {
+        tankAlarm.textContent = "!! GASOLINA REQUER REPAROS !!" 
+    }
     if (stats.combustivel <= 0) {
         tankAlarm.textContent = "!! GASOLINA EM NIVEL CRITICO !!"
+        stats.timeUntilDestruction -= 1
+        info.textContent = "C: " + stats.combustivel + " T: " + stats.temp + " P: " + stats.points + " TEMPO ATÉ AUTODESTRUIÇÃO: " + stats.timeUntilDestruction
     }
-    if (stats.temp >= 150) {
+    if (stats.temp == 100) {
+        tempAlarm.textContent = "!! TEMPERATURA REQUER REPAROS !!"
+    }
+    if (stats.temp >= 150) { 
         tempAlarm.textContent = "!! TEMPERATURA EM NIVEL CRITICO !!"
+        stats.timeUntilDestruction -= 1
+        info.textContent = "C: " + stats.combustivel + " T: " + stats.temp + " P: " + stats.points + " TEMPO ATÉ AUTODESTRUIÇÃO: " + stats.timeUntilDestruction
+    }
+    if (stats.timeUntilDestruction == 0) {
+        info.textContent = "gg game over"
+        //jaoa mude as coisas aq se precisar de ajuda estou aq ok flw
     }
 }
 
 function malfunctionTank() {
     stats.tankBroken = true
-    tankAlarm.textContent = "!! GASOLINA REQUER REPAROS !!"
     let closedForGood = false // razões de segurança
     let minigameWindow = window.open("/paginas/pop-ups/tank.html")
     let combustivelStatus
@@ -59,7 +72,6 @@ function malfunctionTank() {
 
 function malfunctionTemp() {
     stats.tempBroken = true
-    tempAlarm.textContent = "!! TEMPERATURA REQUER REPAROS !!"
     let closedForGood = false // razões de segurança
     let minigameWindow = window.open("/paginas/pop-ups/temp.html")
     let tempStatus
@@ -92,28 +104,4 @@ function infoStart() {
             clearInterval(check)
         }
     }, 1000)
-
-    /*
-    let check = setInterval(function () {
-        console.log("hello")
-        for (let index = 0; index < cubes.length; index++) {
-            const element = cubes[index];
-            if (prevElement == null || prevElement == undefined) {
-                prevElement = element
-            } else if (element != prevElement) {
-                win = false
-            }
-            console.log(prevElement)
-            console.log(element)
-            if (cubes.length - 1 == index) {
-                if (win == true) {
-                    stats.points = stats.points + 2
-                    closedForGood = true
-                    minigameWindow.close()
-                    clearInterval(check)
-                }
-            }
-        }
-    }, 1000)
-    */
 }
